@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 		<link rel="icon" type="images/png" href="img/logo.png"/>
 	</head>
+      
 	<body>
 		<div id="cabecera" class="STBHead fondoCeleste titulo cblanco">
 			<div class="w6 STBAgroup">
@@ -22,7 +23,8 @@
 				$session=$this->session->get_userdata();
 				echo "BIENVENIDO " .$session['nombreusr'];
 			?>	
-		</div>
+		</div>  
+       
 		<div id="botones" class="w8 txs7 STBBody margin5">
 			<a class="STBControl izq margin3 STBSombra STBSombraOut" href="<?php echo site_url('controlador_documentos/subir_documentos')?>">SUBIR DOCUMENTOS</a>
 	
@@ -33,5 +35,6 @@
 		<div id="pie" class="w10 fondoCeleste">
 		</div>
 	</body>
+      
 </head>
 	

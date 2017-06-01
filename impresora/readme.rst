@@ -68,3 +68,11 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+***************
+Ahora entiendo 
+***************
+
+Ahora entiendo el interes de algunas personas para que realizará ciertos
+trabajos en este formato de texto.
+
