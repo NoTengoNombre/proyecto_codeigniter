@@ -12,7 +12,7 @@
 <div>
  <!-- 3 PESTAÑAS : Nav tabs -->
  <ul class="nav nav-tabs" role="tablist">
-  
+
   <li role="presentation" class="active">
    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">CONSULTA</a>
   </li>
@@ -35,7 +35,7 @@
     <h3>Tabla para listar usuarios</h3>
 
     <thead>
-     
+
     <th>Tipo</th>
     <th>Usuario_id</th>
     <th>Nombre</th>
@@ -46,7 +46,7 @@
     <th>
     <center>Acciones</center>
     </th>
-    
+
     </thead>
 
     <tbody>
@@ -60,7 +60,7 @@
           <td><?php echo $value->fotografia; ?></td>
           <td><?php echo $value->telefono; ?></td>
           <td><?php echo $value->email; ?></td>
-          
+
           <!---------------------------------------------------------------------------->
           <td> 
         <center>
@@ -76,7 +76,7 @@
         </td>
         </tr>
     <?php } ?>
-        
+
     </tbody>
    </table>
   </div>
@@ -84,6 +84,7 @@
   <!--- -------------------------------------------------------------------- -->
   <!--- -------------------------------------------------------------------- -->
   <!-- FORMULARIO DE REGISTRO -->
+  
   <div role="tabpanel" class="tab-pane" id="profile">
    <div class="row">
     <div class="col-md-7">
@@ -92,26 +93,26 @@
 
      <!-- Manda la orden al CONTROLADOR -->
      <form method="get" action="<?php echo base_url('controlador_usuarios/aniadir_usuario') ?>">
-      
+
       <div class="form-group">
        <label for="exampleInputEmail1">Tipo de usuario</label>
        <select name="tipo" class="form-control">
-          <option value="0">Administrador</option>    
-          <option value="1">Usuario</option>    
+        <option value="0">Administrador</option>    
+        <option value="1">Usuario</option>    
        </select>
       </div>
 
       <div class="form-group">
        <label for="exampleInputEmail1">Nombre</label>
-       
+
        <input type="text" name="nombre" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
       </div>
- 
-     <div class="form-group">
+
+      <div class="form-group">
        <label for="exampleInputEmail1">Apellidos</label>
        <input type="text" name="apellidos" class="form-control" id="exampleInputEmail1" placeholder="Apellidos">
       </div>
-      
+
       <div class="form-group">
        <label for="exampleInputEmail1">Password</label>
        <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="Password">
@@ -131,15 +132,15 @@
        <label for="exampleInputPassword1">Telefono</label>
        <input type="text" name="telefono" class="form-control" id="exampleInputPassword1" placeholder="Telefono">
       </div>
-      
+
       <br>
       <button type="submit" class="btn btn-default">Registrar Usuario</button>
      </form>
     </div>
-  <!--- -------------------------------------------------------------------- -->
-  <!--- -------------------------------------------------------------------- -->
-  <!--- -------------------------------------------------------------------- -->
-  <!--- -------------------------------------------------------------------- -->
+    <!--- -------------------------------------------------------------------- -->
+    <!--- -------------------------------------------------------------------- -->
+    <!--- -------------------------------------------------------------------- -->
+    <!--- -------------------------------------------------------------------- -->
     <div class="col-md-5">
      <span>Espacio en blanco</span>
     </div>
@@ -173,10 +174,10 @@
            ?>
            <tr>
             <td> <?php echo $info["usuario_id"] ?> </td>
-            
+
             <td>
              <a href=<?php echo site_url('controlador_documentos/downloadDocument/' . $info["titulo"]) ?> >
-              <?php echo $info["titulo"] ?> 
+                 <?php echo $info["titulo"] ?> 
              </a>
             </td>
 
@@ -188,7 +189,7 @@
             <td> <?php echo $info["id_documento"] ?> </td>
             <td> <?php echo $info["id_archivo"] ?> </td>
            </tr>
-           
+
            <?php
        }
        ?>

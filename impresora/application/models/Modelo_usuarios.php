@@ -74,6 +74,43 @@ class Modelo_usuarios extends CI_Model {
     }
 
     /**
+     * Añadir datos del Usuario
+     * 
+     * @param type $tipo
+     * @param type $nombre
+     * @param type $apellidos
+     * @param type $password
+     * @param type $fotografia
+     * @param type $telefono
+     * @param type $email
+     * 
+     * @return string
+     */
+    public function insertar_usuarios($tipo, $nombre, $apellidos, $password, $fotografia, $telefono, $email) {
+
+        $datos = array(
+            'tipo' => $tipo,
+            'nombre' => $nombre,
+            'apellidos' => $apellidos,
+            'password' => $password,
+            'fotografia' => $fotografia,
+            'telefono' => $telefono,
+            'email' => $email);
+
+        $query = $this->db->insert('usuarios', $datos);
+
+        var_dump($query);
+
+        if ($this->db->affected_rows() == 1) {
+            $respuesta = "correcto";
+        } else {
+            $respuesta = "error";
+        }   
+        return $respuesta; // Respuesta como string
+    }
+
+    
+    /**
      * 
      * @param type $id
      * @return type
@@ -107,41 +144,6 @@ class Modelo_usuarios extends CI_Model {
     public function listUsuario() {
         $query = $this->db->query("SELECT * FROM usuarios u inner join documentos d on u.usuario_id=d.documento_id");
         return $query->result();
-    }
-
-    /**
-     * Añadir datos del Usuario
-     * 
-     * @param type $tipo
-     * @param type $nombre
-     * @param type $apellidos
-     * @param type $password
-     * @param type $fotografia
-     * @param type $telefono
-     * @param type $email
-     * 
-     * @return string
-     */
-    public function insertar_usuarios($tipo, $nombre, $apellidos, $password, $fotografia, $telefono, $email) {
-
-        $datos = array(
-            'tipo' => $tipo,
-            'nombre' => $nombre,
-            'apellidos' => $apellidos,
-            'password' => $password,
-            'fotografia' => $fotografia,
-            'telefono' => $telefono,
-            'email' => $email);
-
-        $query = $this->db->insert('usuarios', $datos);
-        var_dump($query);
-
-        if ($this->db->affected_rows() == 1) {
-            $r = "ok";
-        } else {
-            $r = "error";
-        }
-        return $r; // 
     }
 
 }

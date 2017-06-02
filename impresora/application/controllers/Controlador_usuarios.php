@@ -26,7 +26,6 @@ class Controlador_usuarios extends CI_Controller {
 //    
     public function index() {
         $data['texto'] = "Bienvenido a la aplicación !";
-// Array de Vistas =  Directorio/Archivo
         $data['pagina'] = 'login/view_login';
         $this->load->view('conjunto_vistas', $data); // carga la vista login_seguro 
     }
@@ -116,6 +115,44 @@ class Controlador_usuarios extends CI_Controller {
     }
 
     /**
+     * Insercciones
+     * 
+     * Obtengo datos 'formulario' 
+     * Inserto dentro BD
+     * Muestro con "ok" / "error"  
+     */
+    public function aniadir_usuario() {
+
+        $tipo = $this->input->get_post('tipo');
+        var_dump($tipo);
+        $nombre = $this->input->get_post('nombre');
+        var_dump($nombre);
+        $apellidos = $this->input->get_post('apellidos');
+        var_dump($apellidos);
+        $password = $this->input->get_post('password');
+        var_dump($password);
+        $fotografia = $this->input->get_post('fotografia');
+        var_dump($fotografia);
+        $telefono = $this->input->get_post('telefono');
+        var_dump($telefono);
+        $emails = $this->input->get_post('email');
+        var_dump($emails);
+
+        $respuesta = $this->modelo_usuarios->insertar_usuarios($tipo, $nombre, $apellidos, $password, $fotografia, $telefono, $emails);
+
+        if ($respuesta == "correcto") {
+            $data['mensaje'] = $this->load->view('mensaje/correcto');
+            $this->load->view('mensaje/respuesta', $data);
+            
+        }
+
+        if ($respuesta == "error") {
+            $data['mensaje'] = $this->load->view('mensaje/error');
+            $this->load->view('mensaje/respuesta', $data);
+        }
+    }
+
+    /**
      * Modificar el usuario
      * 
      * Envia resultado a la vista
@@ -188,40 +225,6 @@ class Controlador_usuarios extends CI_Controller {
             $this->load->view('usuarios/delete_usuario', $resultado);
         } else {
             $this->index();
-        }
-    }
-
-    /**
-     * Insercciones
-     * 
-     * Obtengo datos 'formulario' 
-     * Inserto dentro BD
-     * Muestro con "ok" / "error"  
-     */
-    public function aniadir_usuario() {
-
-        $tipo = $this->input->get_post('tipo');
-        var_dump($tipo);
-        $nombre = $this->input->get_post('nombre');
-        var_dump($nombre);
-        $apellidos = $this->input->get_post('apellidos');
-        var_dump($apellidos);
-        $password = $this->input->get_post('password');
-        var_dump($password);
-        $fotografia = $this->input->get_post('fotografia');
-        var_dump($fotografia);
-        $telefono = $this->input->get_post('telefono');
-        var_dump($telefono);
-        $emails = $this->input->get_post('email');
-        var_dump($emails);
-
-        $respuesta = $this->modelo_usuarios->insertar_usuarios($tipo, $nombre, $apellidos, $password, $fotografia, $telefono, $emails);
-
-        var_dump($respuesta);
-
-        if ($respuesta == "ok") {
-            
-            $this->load->view('panel/panel_admin', $data);
         }
     }
 
