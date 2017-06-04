@@ -4,51 +4,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Controlador_documentos extends CI_Controller {
 
-    /**
-     * Constructor basico 
-     */
     public function __construct() {
         parent::__construct();
         $this->load->model('modelo_documentos');
-
     }
 
     /**
-     * Subir archivo pdf
+     * Subir archivo al servidor
+     * mediate un formulario
+     * Agregando 3 parametros
+     * 1º datos del archivo
+     * 2º Identificador del archivo
+     * 3º ID del usario de la session 
      */
     public function uploadDocument() {
-//        Configuracion del archivo a subir
+// Configuración de los archivos que se van a subir       
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'pdf';
         $config['max_size'] = 5000;
-        
-// Viene del formulario         
-        $numeroDocumentos = $this->input->get_post('numeroDocumentos');
-// Crea session         
+
+//Recibe del formulario el "numeroDocumentos"
+        $numeroDocumentos = $this->input->post('numeroDocumentos');
+//Obtengo todos los valores del 'Array Asociativo' $session         
         $session = $this->session->get_userdata();
-// Obtenemos el valor 'idusr' de la session       
+                    //  '__ci_last_regenerate' => int 1496512944
+                    //  'idusr' => string '1' (length=1)
+                    //  'tipousr' => string '1' (length=1)
+                    //  'nombreusr' => string 'u' (length=1)
+
+#Creo 'string' con la variable de session        
         $idusr = $session['idusr'];
-// Carga el upload para subir archivo y la configuración        
+
+//Subir archivo con la configuracion
         $this->load->library('upload', $config);
-//         
+
+//Consulta a BD con el ultimo registro     
         $archivoId = $this->modelo_documentos->getLastArchivoId() + 1;
-        
+
+//Recorre el numero de documentos que se han ido añadiendo desde el formulario
+//mediante JQUERY        
         for ($i = 1; $i < $numeroDocumentos + 1; $i++) {
+            
+//Incremento para saber el numero del archivo por el que va          
             echo $i;
+            
+//Espera que los archivos de subida venga del formulario 
+//Si ARCHIVO DA ERROR 'se cambia la condicion' entra en el 'IF' 
             if (!$this->upload->do_upload('documento' . $i)) {
                 echo '<h1>no entra</h1>';
-                $error = array('error' => $this->upload->display_errors());
-
-                //$this->load->view('upload_form', $error);
-                
+                $error = array('error' => $this->upload->display_errors('<p> Error en la subida del archivo ', '</p>'));
+//Si ARCHIVO ES SUBIDO 'entra en esta condicion'                
             } else {
-
-                echo '<h1>entra</h1>';
-                /* $documentoId = $this->getNewDocumentoId(); //hacerla, saca documento id no usada */
-                $upload = array('upload_data' => $this->upload->data());
-        
-                $name = $upload['upload_data']['file_name'];
                 
+                echo '<h1>Entra</h1>';
+//Crea array 'asociativo'                
+                $upload = array('upload_data' => $this->upload->data());
+//                                   Fila       Columna
+                $name = $upload['upload_data']['file_name'];
+//Datos de configuracion del archivo               
                 $data = array(
                     'nombreConjunto' => $this->input->post('nombre'),
                     'notas' => $this->input->post('notas'),
@@ -56,34 +69,59 @@ class Controlador_documentos extends CI_Controller {
                     'url' => $name,
                     'documentoId' => 1,
                 );
-                $this->Modelo_documentos->uploadDocument($data, $archivoId, $idusr);
-                //$this->load->view('upload_success', $data);
+                
+                $this->modelo_documentos->uploadDocument($data, $archivoId, $idusr);
             }
         }
     }
 
-
-    
+    /**
+     * 
+     * @param type $name
+     */
     public function downloadDocument($name) {
-        $this->Modelo_documentos->downloadDocument($name);
+        $this->modelo_documentos->downloadDocument($name);
     }
-    
+
+    /**
+     * 
+     * @return type
+     */
     public function getDocumentInfoAdmin() {
-    	$info = $this->Modelo_documentos->getDocumentInfo();
-    	return $info;  	
+        $info = $this->modelo_documentos->getDocumentInfo();
+        return $info;
     }
-    
+
+    /**
+     * 
+     */
     public function ver_documentos() {
 
-    	$session=$this->session->get_userdata();
-    	$idusr = $session['idusr'];
-    	$info = $this->modelo_documentos->getDocumentInfoUser($idusr);
-    	$data = array("info"=>$info);
-    	$this->load->view('usuarios/ver_documentos', $data);
+        $session = $this->session->get_userdata();
+        $idusr = $session['idusr'];
+        $info = $this->modelo_documentos->getDocumentInfoUser($idusr);
+        $data = array("info" => $info);
+        $data['pagina'] = 'usuarios/ver_documentos';
+        $this->load->view('conjunto_vistas', $data);
     }
-    
-    public function subir_documentos(){
-    	$this->load->view('usuarios/subir_documentos');
+
+    /**
+     * 
+     */
+    public function subir_documentos() {
+        $data['pagina'] = 'usuarios/subir_documentos';
+        $this->load->view('conjunto_vistas', $data);
+    }
+
+    /**
+     * 
+     * @param type $id
+     */
+    public function cambiar_estado($id) {
+        $data = array('estado' => 1);
+        echo $id;
+        $this->db->where('documento_id', $id);
+        $this->db->update('documentos', $data);
     }
 
 }

@@ -1,19 +1,17 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Modelo_usuarios extends CI_Model {
 
     /**
      * No necesita
-     * $this->load->database
+     * $this->load->database()
+     * Porque esta en el autoload
      */
     public function __construct() {
         parent::__construct();
-        $this->load->database();
     }
-
-/////////////////////////////////////////////////////////////////////////////
-///////////////////////// LOGIN /////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
 
     /**
      * Consulta BD con AR
@@ -27,37 +25,35 @@ class Modelo_usuarios extends CI_Model {
     public function check_login_modelo($usr, $pass) {
         // selecciono columna "nombre" , nombre usuario del form
         $this->db->where("nombre", $usr); // dato enviado al metodo check_login - Controlador
-        // selecciono columna "password" , password del for  
+        // selecciono columna "password" , password del form
         $this->db->where("password", $pass); // dato enviado al metodo check_login - Controlador
         // selecciona tabla usuarios para hacer la consulta
-        //// SELECT (*) FROM 'usuarios' where nombre like 'usr' and password like 'pass'
-        $resultado = $this->db->get("usuarios");
+        //OBJETO
+        $resultado = $this->db->get("usuarios"); // SELECT (*) FROM 'usuarios' where nombre like 'usr' and password like 'pass'
         //Objeto 'db' contiene total de filas
-        if ($this->db->affected_rows() > 0) { // si hay +1 fila
+        if ($this->db->affected_rows() > 0) { // hay +1 filas
             // $resultado - Objeto con todos los campos en forma de String
             // $fila - Columnas BD se sacan como objetos
             foreach ($resultado->result() as $fila) {//devuelve todos "elementos" en un array de objetos
-                //$datos_usuario -> ARRAY Instanciado en este momento
-                //"De todos los elementos del ARRAY selecciono las columnas idusr , tipousr"
-// almaceno en el array $datos_usuario el objeto 'usuario_id' que es un String
-                $datos_usuario['idusr'] = $fila->usuario_id;
-// almaceno en el array $datos_usuario el objeto 'tipo' que es un String
-                $datos_usuario['tipousr'] = $fila->tipo;
+                //      "De todos los elementos del ARRAY selecciono las columnas idusr , tipousr"
+                //      $datos_usuario -> ARRAY Instanciado en este momento
+                $resultado = array();
+// Los datos los almaceno en un array de 'STRING'
+// En el indice ['idusr'] almaceno el usuario_id de la BD               
+                $resultado['idusr'] = $fila->usuario_id; // almaceno en el array $datos_usuario el objeto 'usuario_id' que es un String
+// En el indice ['tipousr'] almaceno el usuario_id de la BD               
+                $resultado['tipousr'] = $fila->tipo; // almaceno en el array $datos_usuario el objeto 'tipo' que es un String
             }
         } else {
-
-            $datos_usuario = null; // si no hay registro devuelve false
+// si no hay registro devuelve : NULL
+            $resultado = null;
         }
-
-        return $datos_usuario; //devuelve array de String o devuelve null
+        return $resultado; //devuelve array de String o devuelve 'null'
     }
 
-/////////////////////////////////////////////////////////////////////////////
-///////////////////////// USUARIOS //////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-
     /**
-     * Obtener todos los usuarios de la BD
+     * Ok!
+     * Mostrar todos los usuarios
      * 
      * @return type Array "Objetos"
      */
@@ -65,85 +61,69 @@ class Modelo_usuarios extends CI_Model {
 
         $query = $this->db->get("usuarios"); // SELECT (*) FROM usuarios
 
-        if ($query->num_rows() > 0) { // Si hay valores
-            foreach ($query->result() as $fila) { // Obtengo ARRAY de OBJETOS
-                $data[] = $fila; // Almaceno los 'OBJETOS' dentro de un ARRAY
+// Si hay valores
+        if ($query->num_rows() > 0) { 
+            
+            foreach ($query->result() as $fila) { // Saco los objetos
+                
+                $data[] = $fila; // Almaceno los OBJETOS dentro de un ARRAY
             }
-            return $data; // Devuelve 'ARRAY' de 'OBJETOS'
+            return $data; // Devuelve ARRAY de OBJETOS
         }
     }
 
     /**
-     * Añadir datos del Usuario
      * 
-     * @param type $tipo
+     * Añade datos a la tabla usuarios
+     * 
+     * Se invoca en el controlador
+     * 
+     * @param type $usuario_id
      * @param type $nombre
      * @param type $apellidos
      * @param type $password
      * @param type $fotografia
      * @param type $telefono
      * @param type $email
-     * 
+     * @param type $tipo
      * @return string
      */
-    public function insertar_usuarios($tipo, $nombre, $apellidos, $password, $fotografia, $telefono, $email) {
+    public function add_user($tipo, $nombre, $apellidos, $password, $telefono, $email, $fotografia) {
+
+//      $filas = $this->db->get('usuarios'); // Produce: SELECT * FROM usuarios
+//      $usuario_id = $filas->num_rows();
+//      var_dump($usuario_id);
+
+        echo $tipo;
+        echo $nombre;
+        echo $apellidos;
+        echo $password;
+        echo $telefono;
+        echo $email;
+        echo $fotografia;
+
+        echo '<hr>';
+        echo 'Final';
+        echo '<hr>';
 
         $datos = array(
-            'tipo' => $tipo,
             'nombre' => $nombre,
             'apellidos' => $apellidos,
             'password' => $password,
+            'email' => $email,
+            'tipo' => $tipo,
             'fotografia' => $fotografia,
-            'telefono' => $telefono,
-            'email' => $email);
+            'telefono' => $telefono);
 
-        $query = $this->db->insert('usuarios', $datos);
-
-        var_dump($query);
-
+//      Ejecuta la accion de insertar
+        echo $this->db->insert('usuarios', $datos);
+//      El objeto 'db' dice si tiene fila o no
         if ($this->db->affected_rows() == 1) {
-            $respuesta = "correcto";
+            $r = "ok";
         } else {
-            $respuesta = "error";
-        }   
-        return $respuesta; // Respuesta como string
-    }
-
-    
-    /**
-     * 
-     * @param type $id
-     * @return type
-     */
-    public function edit_usuario($id) {
-//      $consulta = $this->db->query("SELECT * FROM usuario u inner join perfil p on u.per_id = p.per_id WHERE u.usu_id = $id");
-//      $consulta = $this->db->query("SELECT * FROM usuarios u inner join documentos d on u.usuario_id = d.usuario_id WHERE u.usuario_id = '$id'");
-//        $consulta = $this->db->query("SELECT * FROM usuarios WHERE usuario_id = '$id'");
-        $consulta = $this->db->query("select * from usuarios u inner join archivo a on u.usuario_id = a.id_archivo where u.usuario_id = $id");
-        return $consulta->result();
-    }
-
-    /**
-     * la función de Select * en sql
-     * 
-     * @return type
-     */
-    public function sel_usuarios() {
-
-        $query = $this->db->get("usuarios");
-
-        //retornamos todo los registros de la tabla perfil
-        return $query->result();
-    }
-
-    /**
-     * funcion para listar usuarios
-     * 
-     * @return type
-     */
-    public function listUsuario() {
-        $query = $this->db->query("SELECT * FROM usuarios u inner join documentos d on u.usuario_id=d.documento_id");
-        return $query->result();
+            $r = "error";
+        }
+        return $r; // devuelve string
     }
 
 }
