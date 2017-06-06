@@ -46,17 +46,14 @@ class Controlador_documentos extends CI_Controller {
         for ($i = 1; $i < $numeroDocumentos + 1; $i++) {
             
 //Incremento para saber el numero del archivo por el que va          
-            echo $i;
             
 //Espera que los archivos de subida venga del formulario 
 //Si ARCHIVO DA ERROR 'se cambia la condicion' entra en el 'IF' 
             if (!$this->upload->do_upload('documento' . $i)) {
-                echo '<h1>no entra</h1>';
                 $error = array('error' => $this->upload->display_errors('<p> Error en la subida del archivo ', '</p>'));
 //Si ARCHIVO ES SUBIDO 'entra en esta condicion'                
             } else {
                 
-                echo '<h1>Entra</h1>';
 //Crea array 'asociativo'                
                 $upload = array('upload_data' => $this->upload->data());
 //                                   Fila       Columna
@@ -71,8 +68,10 @@ class Controlador_documentos extends CI_Controller {
                 );
                 
                 $this->modelo_documentos->uploadDocument($data, $archivoId, $idusr);
+                
             }
         }
+        return $this->nueva_vista();
     }
 
     /**
@@ -95,19 +94,6 @@ class Controlador_documentos extends CI_Controller {
     /**
      * 
      */
-    public function ver_documentos() {
-
-        $session = $this->session->get_userdata();
-        $idusr = $session['idusr'];
-        $info = $this->modelo_documentos->getDocumentInfoUser($idusr);
-        $data = array("info" => $info);
-        $data['pagina'] = 'usuarios/ver_documentos';
-        $this->load->view('conjunto_vistas', $data);
-    }
-
-    /**
-     * 
-     */
     public function subir_documentos() {
         $data['pagina'] = 'usuarios/subir_documentos';
         $this->load->view('conjunto_vistas', $data);
@@ -118,10 +104,22 @@ class Controlador_documentos extends CI_Controller {
      * @param type $id
      */
     public function cambiar_estado($id) {
-        $data = array('estado' => 1);
+    	$date = date('d/m/Y', time()); // devuelve 'String'
+        $data = array('estado' => 1,'fecha_impresion'=>$date);
         echo $id;
         $this->db->where('documento_id', $id);
         $this->db->update('documentos', $data);
+        
+    }
+    
+    public function nueva_vista(){
+    	$session = $this->session->get_userdata();
+    	$idusr = $session['idusr'];
+    	$info = $this->modelo_documentos->getDocumentInfoUser($idusr);
+    	$data = array("info" => $info);
+    	$data['pagina'] = 'panel/panel_user';
+    	$this->load->view('conjunto_vistas', $data);
+    	
     }
 
 }

@@ -52,7 +52,6 @@ class Modelo_usuarios extends CI_Model {
     }
 
     /**
-     * Ok!
      * Mostrar todos los usuarios
      * 
      * @return type Array "Objetos"
@@ -60,70 +59,94 @@ class Modelo_usuarios extends CI_Model {
     public function get_all_users() {
 
         $query = $this->db->get("usuarios"); // SELECT (*) FROM usuarios
-
 // Si hay valores
-        if ($query->num_rows() > 0) { 
-            
+        if ($query->num_rows() > 0) {
             foreach ($query->result() as $fila) { // Saco los objetos
-                
-                $data[] = $fila; // Almaceno los OBJETOS dentro de un ARRAY
+                $data[] = $fila; // Almaceno todos datos de USUARIOS dentro ARRAY
             }
-            return $data; // Devuelve ARRAY de OBJETOS
+            //Con todos los datos de los USUARIOS
+            return $data; // Devuelve ARRAY de Objetos - 
         }
     }
 
     /**
      * 
-     * Añade datos a la tabla usuarios
-     * 
-     * Se invoca en el controlador
-     * 
-     * @param type $usuario_id
+     * @param type $tipo
      * @param type $nombre
      * @param type $apellidos
      * @param type $password
-     * @param type $fotografia
-     * @param type $telefono
      * @param type $email
-     * @param type $tipo
-     * @return string
+     * @param type $telefono
+     * @param type $fotografia
      */
-    public function add_user($tipo, $nombre, $apellidos, $password, $telefono, $email, $fotografia) {
+    public function user_add($tipo, $nombre, $apellidos, $password, $email, $telefono, $fotografia) {
 
-//      $filas = $this->db->get('usuarios'); // Produce: SELECT * FROM usuarios
-//      $usuario_id = $filas->num_rows();
-//      var_dump($usuario_id);
-
-        echo $tipo;
-        echo $nombre;
-        echo $apellidos;
-        echo $password;
-        echo $telefono;
-        echo $email;
-        echo $fotografia;
-
-        echo '<hr>';
-        echo 'Final';
-        echo '<hr>';
-
-        $datos = array(
+        $arrayDatos = array(
+            'tipo' => $tipo,
             'nombre' => $nombre,
             'apellidos' => $apellidos,
             'password' => $password,
             'email' => $email,
-            'tipo' => $tipo,
             'fotografia' => $fotografia,
-            'telefono' => $telefono);
+            'telefono' => $telefono,
+        );
 
-//      Ejecuta la accion de insertar
-        echo $this->db->insert('usuarios', $datos);
-//      El objeto 'db' dice si tiene fila o no
-        if ($this->db->affected_rows() == 1) {
-            $r = "ok";
-        } else {
-            $r = "error";
-        }
-        return $r; // devuelve string
+        $this->db->insert('usuarios', $arrayDatos);
+    }
+
+    
+//http://localhost/impresora/controlador_usuarios/add_user?tipo=1&nombre=goku&apellidos=saiyan&email=gk%40gmail.com&password=1234&telefono=662123456&fotografia=fotografia_por_defecto
+    
+    /**
+     * Active Record
+     * 
+     * Filtro datos 'usuarios' mediante 'id' 
+     * Devolver 'Array Objetos' con datos
+     * 
+     * @param type $id
+     * @return type "Array OBJETOS"
+     */
+    public function editar_usuario($id) {
+
+        $consulta = $this->db->query("SELECT * FROM usuarios u WHERE u.usuario_id = $id");
+        $consulta = $this->db->get($id);
+
+        return $consulta->result(); // regresa 'array de objetos'
+    }
+
+    /**
+     * Metodo obtiene datos formulario
+     * 
+     * @param type $usuario_id
+     * @param type $nombre
+     * @param type $apellidos
+     * @param type $email
+     * @param type $telefono
+     * @param type $tipo
+     */
+    public function update_usuario($usuario_id, $tipo, $nombre, $apellidos, $email, $telefono) {
+
+        $array = array(
+            'usuario_id' => $usuario_id,
+            'tipo' => $tipo,
+            'nombre' => $nombre,
+            'apellidos' => $apellidos,
+            'email' => $email,
+            'telefono' => $telefono,
+        );
+
+        $this->db->where('usuario_id', $usuario_id);
+        $this->db->update('usuarios', $array);
+    }
+
+    /**
+     * 
+     * @param type $id
+     */
+    public function deleteUsuario($id) {
+        $this->db->where('usuario_id', $id);
+        $us = $this->db->delete('usuarios');
+        var_dump($us);
     }
 
 }

@@ -18,7 +18,6 @@ class Modelo_documentos extends CI_Model {
     public function uploadDocument($data, $archivoId, $idusr) {
 
         $date = date('d/m/Y', time()); // devuelve 'String'
-        
 //'Array Asociativo'   
         $documentos = array(
             'titulo' => $data['url'], // contiene la url
@@ -26,6 +25,7 @@ class Modelo_documentos extends CI_Model {
             'estado' => 0,
             'usuario_id' => $idusr,
             'fecha_creacion' => $date, // objeto fecha
+            'fecha_impresion' => "Sin Imprimir", // objeto fecha
         );
 
         $this->db->set($documentos); // permite establecer valores para insercciones/actualizaciones
@@ -88,13 +88,12 @@ class Modelo_documentos extends CI_Model {
      */
     public function getDocumentInfo() {
 // todos los campos
-        $this->db->select('*');  
-        
+        $this->db->select('*');
+
         $this->db->join('documentos', 'documentos.documento_id = archivo.id_documento');
         $this->db->join('usuarios', 'documentos.usuario_id = usuarios.usuario_id');
 
         $query = $this->db->get('archivo'); // select * from archivo - Filtrando por documento y usuarios
-
 //Devuelve el registro de la BD como 'array['indices']'        
         $docInfo = $query->result_array();
 
@@ -112,17 +111,17 @@ class Modelo_documentos extends CI_Model {
      */
     public function getDocumentInfoUser($idusr) {
 // todos los campos
-        $this->db->select('*'); 
+        $this->db->select('*');
 // Le pasamos el $idusr para hacer la seleccion      
         $this->db->join('documentos', 'documentos.documento_id = archivo.id_documento and usuario_id = ' . $idusr);
 // selecciono la tabla 'archivo'
-        $query = $this->db->get('archivo'); 
+        $query = $this->db->get('archivo');
 // Devuelve un array['indice'] 
-        $docInfo = $query->result_array(); 
+        $docInfo = $query->result_array();
 // codifica a Array-String - JSON-String
-        $docInfoJson = json_encode($docInfo); 
+        $docInfoJson = json_encode($docInfo);
 // devuelve 'Array Asociativo' 
-        return $docInfoJson; 
+        return $docInfoJson;
     }
 
 }
