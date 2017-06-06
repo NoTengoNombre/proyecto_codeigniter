@@ -1,0 +1,55 @@
+    /**
+     * Consulta con inner join
+     * @param type $id
+     * @return type
+     */
+    public function editar_usuario_inner_($id) {
+        echo '<br>soy modelo<br>';
+        $consulta = $this->db->query("select * from usuarios u inner join documentos d on u.usuario_id = d.usuario_id where u.usuario_id = $id");
+        return $consulta->result(); // regresa 'array de objetos'
+    }
+
+C:\xampp\htdocs\impresora\application\models\Modelo_usuarios.php:92:
+object(CI_DB_mysqli_result)[19]
+  public 'conn_id' => 
+    object(mysqli)[15]
+      public 'affected_rows' => int 1
+      public 'client_info' => string 'mysqlnd 5.0.12-dev - 20150407 - $Id: 241ae00989d1995ffcbbf63d579943635faf9972 $' (length=79)
+      public 'client_version' => int 50012
+      public 'connect_errno' => int 0
+      public 'connect_error' => null
+      public 'errno' => int 0
+      public 'error' => string '' (length=0)
+      public 'error_list' => 
+        array (size=0)
+          empty
+      public 'field_count' => int 8
+      public 'host_info' => string 'localhost via TCP/IP' (length=20)
+      public 'info' => null
+      public 'insert_id' => int 0
+      public 'server_info' => string '5.5.5-10.1.16-MariaDB' (length=21)
+      public 'server_version' => int 50505
+      public 'stat' => string 'Uptime: 38281  Threads: 3  Questions: 1004  Slow queries: 0  Opens: 36  Flush tables: 1  Open tables: 29  Queries per second avg: 0.026' (length=135)
+      public 'sqlstate' => string '00000' (length=5)
+      public 'protocol_version' => int 10
+      public 'thread_id' => int 109
+      public 'warning_count' => int 0
+  public 'result_id' => 
+    object(mysqli_result)[20]
+      public 'current_field' => int 0
+      public 'field_count' => int 8
+      public 'lengths' => null
+      public 'num_rows' => int 1
+      public 'type' => int 0
+  public 'result_array' => 
+    array (size=0)
+      empty
+  public 'result_object' => 
+    array (size=0)
+      empty
+  public 'custom_result_object' => 
+    array (size=0)
+      empty
+  public 'current_row' => int 0
+  public 'num_rows' => null
+  public 'row_data' => null
