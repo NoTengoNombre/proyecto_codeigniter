@@ -49,7 +49,8 @@ class Controlador_usuarios extends CI_Controller {
             //Crea el objeto 'modelo_usuarios' para invocar metodo "check_login_modelo"
             //Recojo del 'Array' con los datos del modelo del formulario de 'LOGIN'
             $datos_usuario = $this->modelo_usuarios->check_login_modelo(
-                    $this->input->post("usr"), $this->input->post("pass")
+                    $this->input->post("usr"), 
+                    $this->input->post("pass")
             );
             // "$datos_usuario" devuelve 'Array' de 'String' y entra en el If
             if ($datos_usuario != null) {
@@ -103,44 +104,17 @@ class Controlador_usuarios extends CI_Controller {
 
     /**
      * 
-     * necesita insertar foto
-     */
-    public function add_user() {
-
-        $datos = $this->input->post();
-
-        if (isset($datos)) {
-            $tipo = $datos['tipo'];
-            $nombre = $datos['nombre'];
-            $apellidos = $datos['apellidos'];
-            $password = $datos['password'];
-            $email = $datos['email'];
-            $fotografia = $datos['fotografia'];
-            $telefono = $datos['telefono'];
-        }
-
-        $insert = $this->modelo_usuarios->user_add($tipo, $nombre, $apellidos, $password, $email, $fotografia, $telefono); // el insert no hace falta
-
-        var_dump($insert);
-
-        if ($insert == TRUE) {
-            $this->index();
-        }
-        echo json_encode(array("status" => TRUE)); // siempre enviara el json como Array-String
-    }
-
-    /**
-     * 
      * @param type $id
      */
     public function editar_usuario($id = null) {
 
         if ($id != null) {
-            echo 'soy controlador - Editar Usuario <br>';
+            echo 'soy controlador - editar_usuario<br>';
             //COGE EL archivo 'VISTA:usuario:edit' y la almacena en la variable
             $data['todos_usuarios'] = $this->modelo_usuarios->get_all_users();
             $data['datosUsuario'] = $this->modelo_usuarios->editar_usuario($id);
             $data['pagina'] = 'usuarios/editar_usuario';
+
             $this->load->view('conjunto_vistas', $data);
         } else {
             //regresar a index enviar parametro
@@ -150,29 +124,46 @@ class Controlador_usuarios extends CI_Controller {
 
     /**
      * 
+     * necesita insertar foto
+     */
+    public function add_user() {
+
+        $tipo = $this->input->get_post('tipo');
+        $nombre = $this->input->get_post('nombre');
+        $apellidos = $this->input->get_post('apellidos');
+        $password = $this->input->get_post('password');
+        $email = $this->input->get_post('email');
+        $fotografia = $this->input->get_post('fotografia');
+        $telefono = $this->input->get_post('telefono');
+
+        $insert = $this->modelo_usuarios->user_add($tipo, $nombre, $apellidos, $password, $email, $fotografia, $telefono); // el insert no hace falta
+//        NO REDIRIGE BIEN
+        if ($insert == TRUE) {
+            var_dump(redirect(''));
+        }
+        echo json_encode(array("status" => TRUE)); // siempre enviara el json como Array-String
+    }
+
+    /**
+     * 
      */
     public function actualizar_usuario() {
 
-        $datos = $this->input->post();
+        $usuario_id = $this->input->get_post('usuario_id');
+        $nombre = $this->input->get_post('nombre');
+        $apellidos = $this->input->get_post('apellidos');
+        $email = $this->input->get_post('email');
+        $fotografia = $this->input->get_post('fotografia');
+        $telefono = $this->input->get_post('telefono');
+        $tipo = $this->input->get_post('tipo');
 
-        echo '<br>Soy Controlador_usuarios::actualizar_usuario';
+        $respuesta = $this->modelo_usuarios->update_usuario($usuario_id, $nombre, $apellidos, $email, $fotografia, $telefono, $tipo);
 
-        var_dump($datos);
-
-        if (isset($datos)) {
-
-            $usuario_id = $datos['usuario_id'];
-            $tipo = $datos['tipo'];
-            $nombre = $datos['nombre'];
-            $apellidos = $datos['apellidos'];
-            $password = $datos['password'];
-            $email = $datos['email'];
-            $fotografia = $datos['fotografia'];
-            $telefono = $datos['telefono'];
-        }
-
-        $re = $this->modelo_usuarios->update_usuario($tipo, $usuario_id, $nombre, $apellidos, $password, $email, $fotografia, $telefono);
-        if ($re) {
+        if ($respuesta == true) {
+            $data['mensaje'] = 'SOY correcto';
+            $data['pagina'] = 'partes/correcto';
+            $this->load->view('conjunto_vistas', $data);
+        } else {
             $this->index();
         }
     }

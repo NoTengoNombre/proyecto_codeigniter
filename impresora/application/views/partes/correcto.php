@@ -1,6 +1,7 @@
 <div>
- <p>Correcto</p>
+ <p><?php $mensaje ?></p>
  <?php
- echo anchor('controlador_usuarios/index');
+ redirect();
+// echo anchor('http://localhost/impresora/panel/panel_admin/');
  ?>
 </div>

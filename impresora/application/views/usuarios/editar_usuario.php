@@ -23,8 +23,6 @@
 //Dentro de la posicion del id = almacenamos el nombre del usuarios actualizado
             $lista[$registro->tipo] = $registro->tipo;
         }
-//        var_dump($lista); // depurar
-//Crear un desplegable
 
         echo form_dropdown('tipo', $lista, $value->tipo, 'class=""');
         ?>
@@ -41,14 +39,27 @@
        </div>
 
        <div class="">
+        <label for="">Password</label>
+        <input type="text" name="password" class="" id="" value="<?php echo $value->password; ?>">
+       </div>
+
+       <div class="">
         <label for="">Email</label>
         <input type="text" name="email" class="" id="" value="<?php echo $value->email; ?>">
+       </div>
+
+       <div class="">
+        <label for="">Fotografia</label>
+        <input type="text" name="fotografia" class="" id="" value="<?php echo $value->fotografia; ?>">
        </div>
 
        <div class="">
         <label for="">Telefono</label>
         <input type="text" name="telefono" class="" id="" value="<?php echo $value->telefono; ?>">
        </div>  
+
+
+
 
    <?php } ?>
 

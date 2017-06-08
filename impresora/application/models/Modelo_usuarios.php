@@ -53,6 +53,7 @@ class Modelo_usuarios extends CI_Model {
 
     /**
      * Mostrar todos los usuarios
+     * Obtiene de forma correcta todos los datos
      * 
      * @return type Array "Objetos"
      */
@@ -61,14 +62,16 @@ class Modelo_usuarios extends CI_Model {
         $query = $this->db->get("usuarios"); // SELECT (*) FROM usuarios
 // Si hay valores
         if ($query->num_rows() > 0) {
+
             foreach ($query->result() as $fila) { // Saco los objetos
                 $data[] = $fila; // Almaceno todos datos de USUARIOS dentro ARRAY
             }
+            echo '<hr>';
             //Con todos los datos de los USUARIOS
             return $data; // Devuelve ARRAY de Objetos - 
         }
     }
-
+ 
     /**
      * 
      * @param type $tipo
@@ -76,10 +79,11 @@ class Modelo_usuarios extends CI_Model {
      * @param type $apellidos
      * @param type $password
      * @param type $email
-     * @param type $telefono
      * @param type $fotografia
+     * @param type $telefono
+     * @return type boolean TRUE
      */
-    public function user_add($tipo, $nombre, $apellidos, $password, $email, $telefono, $fotografia) {
+    public function user_add($tipo, $nombre, $apellidos, $password, $email, $fotografia, $telefono) {
 
         $arrayDatos = array(
             'tipo' => $tipo,
@@ -90,13 +94,10 @@ class Modelo_usuarios extends CI_Model {
             'fotografia' => $fotografia,
             'telefono' => $telefono,
         );
-
-        $this->db->insert('usuarios', $arrayDatos);
+        $respuesta2 = $this->db->insert('usuarios', $arrayDatos);
+        return $respuesta2;
     }
 
-    
-//http://localhost/impresora/controlador_usuarios/add_user?tipo=1&nombre=goku&apellidos=saiyan&email=gk%40gmail.com&password=1234&telefono=662123456&fotografia=fotografia_por_defecto
-    
     /**
      * Active Record
      * 
@@ -107,10 +108,7 @@ class Modelo_usuarios extends CI_Model {
      * @return type "Array OBJETOS"
      */
     public function editar_usuario($id) {
-
-        $consulta = $this->db->query("SELECT * FROM usuarios u WHERE u.usuario_id = $id");
-        $consulta = $this->db->get($id);
-
+        $consulta = $this->db->query("SELECT * FROM usuarios WHERE usuario_id = '$id'");
         return $consulta->result(); // regresa 'array de objetos'
     }
 
@@ -124,29 +122,40 @@ class Modelo_usuarios extends CI_Model {
      * @param type $telefono
      * @param type $tipo
      */
-    public function update_usuario($usuario_id, $tipo, $nombre, $apellidos, $email, $telefono) {
+    public function update_usuario($tipo, $usuario_id, $nombre, $apellidos, $password, $email, $fotografia, $telefono) {
+
+        echo ' MODELO:update_usuario - ARRAY ';
 
         $array = array(
             'usuario_id' => $usuario_id,
             'tipo' => $tipo,
             'nombre' => $nombre,
             'apellidos' => $apellidos,
+            'password' => $password,
             'email' => $email,
+            'fotografia' => $fotografia,
             'telefono' => $telefono,
         );
 
+        var_dump($array);
+
         $this->db->where('usuario_id', $usuario_id);
-        $this->db->update('usuarios', $array);
+//        $this->db->update('usuarios', $array);
+        $respuesta = $this->db->update('usuarios', $array);
+        echo 'Soy RESPUESTA del MODELO';
+        var_dump($respuesta);
+        return $respuesta;
     }
 
     /**
+     * ♥ Correcto 
      * 
      * @param type $id
      */
     public function deleteUsuario($id) {
         $this->db->where('usuario_id', $id);
-        $us = $this->db->delete('usuarios');
-        var_dump($us);
+        $re = $this->db->delete('usuarios');
+        return $re;
     }
 
 }

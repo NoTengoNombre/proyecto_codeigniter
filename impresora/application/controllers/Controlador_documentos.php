@@ -62,8 +62,8 @@ class Controlador_documentos extends CI_Controller {
                 $data = array(
                     'nombreConjunto' => $this->input->post('nombre'),
                     'notas' => $this->input->post('notas'),
-                    'numeroDocumentos' => $numeroDocumentos,
-                    'url' => $name,
+                    'numeroDocumentos' => $numeroDocumentos, 
+                   'url' => $name,
                     'documentoId' => 1,
                 );
                 
