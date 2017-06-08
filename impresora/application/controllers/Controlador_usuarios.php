@@ -101,6 +101,10 @@ class Controlador_usuarios extends CI_Controller {
         }
     }
 
+    public function add_user_invitado() {
+        $this->load->view('panel/panel_registro'); // "V" carga todos los usuarios y texto en la vista
+    }
+
     /**
      * 
      * necesita insertar foto
@@ -108,6 +112,8 @@ class Controlador_usuarios extends CI_Controller {
     public function add_user() {
 
         $datos = $this->input->post();
+
+        var_dump($datos);
 
         if (isset($datos)) {
             $tipo = $datos['tipo'];

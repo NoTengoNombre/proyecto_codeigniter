@@ -39,9 +39,12 @@
       echo form_textarea($data);
       echo "<input type='hidden' name='numeroDocumentos' id='numeroDocumentos' value='1'/>";
       echo form_submit('submit', 'Aceptar', "class='STBInput STBSombra STBSombraOut STBTab allline margin5 txs6'");
-      echo form_button('regresar', 'Volver', "class='STBInput STBSombra STBSombraOut STBTab allline margin5 txs6'");
-      echo form_close();
+//      echo form_button('regresar', 'Volver', "class='STBInput STBSombra STBSombraOut STBTab allline margin5 txs6'");
       ?>
+   <button class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6" onclick="location.href = '<?php echo base_url(); ?>'">Regresar</button>
+   <?php
+   echo form_close();
+   ?>
    <script src="../assets/js/jquery.min.js"></script>
    <script>
        $(document).ready(function () {

@@ -43,3 +43,5 @@
  echo form_close(); // cierra el formulario
  ?>
 </div>
+<center><b>¿ No estas registrado ?</b> <br></b><a href="<?php echo base_url('Controlador_usuarios/add_user_invitado'); ?>">Registrate pulsando aquí</a></center><!--for centered text-->
+
