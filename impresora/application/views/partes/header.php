@@ -14,7 +14,7 @@
 		
 	</head>
 	<body>
-		<div id="cabecera" class="STBHead fondoCeleste titulo cblanco margin5">
+		<div id="cabecera" class="STBHead fondoCeleste1 titulo cblanco margin5">
 			<div class="w6 STBAgroup">
 				<img class="izq logo" alt="logo" src="<?php echo base_url('img/logo.png') ?>">
 				<h1 class="izq txs10">IES CELIA VIÑAS<br> <span class="txs1 margin1">Scientia Omnibus Portus</span></h1><br><br><br>

@@ -73,26 +73,7 @@ class Controlador_usuarios extends CI_Controller {
                 $this->session->set_userdata($session);
                 //Comparo el $tipousr          
                 //Usuario
-                if ($tipousr == 1) {
-                    // Cargo 'VISTA' de Usuario 
-                    $session = $this->session->get_userdata();
-                    $idusr = $session['idusr'];
-                    $info = $this->modelo_documentos->getDocumentInfoUser($idusr);
-                    $data = array("info" => $info);
-                    $data['pagina'] = 'panel/panel_user';
-                    $this->load->view('conjunto_vistas', $data);
-
-                    //Administrador
-                } else if ($tipousr == 0) {
-                    // 'Array asociativo' con distintos valores                    
-                    $data["texto"] = "Todos los usuarios";
-                    $data['pagina'] = 'panel/panel_admin'; // Vista Cargada tiene el Array
-
-                    $data["resultados"] = $this->modelo_usuarios->get_all_users();
-                    $data["info"] = $this->modelo_documentos->getDocumentInfo();
-
-                    $this->load->view('conjunto_vistas', $data); // "V" carga todos los usuarios y texto en la vista
-                }
+                $this->panel();
             } else { // Usuario 'NULL' - Datos No correctos (login fallido) - Reenvia login
                 $data['error'] = "<p style='color: red;'>Nombre de usuario y/o contraseña incorrectos</p>";
                 $data['pagina'] = 'login/view_login';
@@ -100,7 +81,44 @@ class Controlador_usuarios extends CI_Controller {
             }
         }
     }
+    
+    public function panel($msj = null) {
+    	if ($this->session->tipousr == 0)		// Administrador
+    		$this->panel_admin($msj);
+    	else if ($this->session->tipousr == 1)  // Usuario
+    		$this->panel_menu($msj);
+    	else
+    		$this->index();
+    	
+    }
 
+    
+    public function panel_usuario($msj = null) {
+    	$this->load->model('modelo_usuarios'); // sacar todos los usuarios
+    	$this->load->model('modelo_documentos');    	
+    	$session = $this->session->get_userdata();
+    	$idusr = $session['idusr'];
+    	$info = $this->modelo_documentos->getDocumentInfoUser($idusr);
+    	$data = array("info" => $info);
+    	$data['pagina'] = 'panel/panel_user';
+    	$data['mensaje'] = $msj;
+    	$this->load->view('conjunto_vistas', $data);
+    }
+    
+    public function panel_admin($msj = null) {
+    	// 'Array asociativo' con distintos valores
+    	$this->load->model('modelo_usuarios'); // sacar todos los usuarios
+    	$this->load->model('modelo_documentos');    	
+    	$data["texto"] = "Todos los usuarios";
+    	$data['pagina'] = 'panel/panel_admin'; // Vista Cargada tiene el Array
+    	$data['mensaje'] = $msj;
+    	 
+    	$data["resultados"] = $this->modelo_usuarios->get_all_users();
+    	$data["info"] = $this->modelo_documentos->getDocumentInfo();
+    	
+    	$this->load->view('conjunto_vistas', $data); // "V" carga todos los usuarios y texto en la vista
+    }
+    
     public function add_user_invitado() {
         $this->load->view('panel/panel_registro'); // "V" carga todos los usuarios y texto en la vista
     }
@@ -141,7 +159,7 @@ class Controlador_usuarios extends CI_Controller {
      */
     public function editar_usuario($id = null) {
 
-        if ($id != null) {
+    	if ($id != null) {
             echo 'soy controlador - Editar Usuario <br>';
             //COGE EL archivo 'VISTA:usuario:edit' y la almacena en la variable
             $data['todos_usuarios'] = $this->modelo_usuarios->get_all_users();
@@ -175,12 +193,14 @@ class Controlador_usuarios extends CI_Controller {
             $email = $datos['email'];
             $fotografia = $datos['fotografia'];
             $telefono = $datos['telefono'];
+            $re = $this->modelo_usuarios->update_usuario($tipo, $usuario_id, $nombre, $apellidos, $password, $email, $fotografia, $telefono);
+      		$this->panel("Usuario modificado con éxito");
+        }
+        else {
+        	$re = false;
+        	$this->panel("Error al actualizad");
         }
 
-        $re = $this->modelo_usuarios->update_usuario($tipo, $usuario_id, $nombre, $apellidos, $password, $email, $fotografia, $telefono);
-        if ($re) {
-            $this->index();
-        }
     }
 
     /**
@@ -190,11 +210,8 @@ class Controlador_usuarios extends CI_Controller {
     public function user_delete($id = NULL) {
         if ($id != NULL) {
             $this->modelo_usuarios->deleteUsuario($id);
-            redirect('');
-//            var_dump($this->model_usuario->deleteUsuario($id));
-        } else {
-            $this->index();
         }
+        $this->panel();
     }
 
 }

@@ -1,4 +1,4 @@
-		<div id="pie" class="w10 margin6 fondoCeleste titulo cblanco">
+		<div id="pie" class="w10 margin6 fondoCeleste1 titulo cblanco">
 			<div class="w6 STBAgroup">
 				<div class="izq padding1 margin8 txtcentro margin9  ">
 					<p>© 2016 IES Celia Viñas <br/>C/ Javier Sanz 15 - 04004<br/> Almería (España)<br/>Tlf: (+34) 950 15 61 51</p>
