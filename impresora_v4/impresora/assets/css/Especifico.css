@@ -1,0 +1,149 @@
+body{
+    background: rgba(252,252,252,1);
+    background: -moz-linear-gradient(left, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 47%, rgba(235,235,235,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(252,252,252,1)), color-stop(47%, rgba(242,242,242,1)), color-stop(100%, rgba(235,235,235,1)));
+    background: -webkit-linear-gradient(left, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 47%, rgba(235,235,235,1) 100%);
+    background: -o-linear-gradient(left, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 47%, rgba(235,235,235,1) 100%);
+    background: -ms-linear-gradient(left, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 47%, rgba(235,235,235,1) 100%);
+    background: linear-gradient(to right, rgba(252,252,252,1) 0%, rgba(242,242,242,1) 47%, rgba(235,235,235,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ebebeb', GradientType=1 );
+}
+.fondoceleste1 {
+    background: rgba(183,222,237,1);
+    background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(183,222,237,1)), color-stop(51%, rgba(33,180,226,1)), color-stop(100%, rgba(183,222,237,1)));
+    background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed', GradientType=1 );
+}
+.logo {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-right: 1%;	
+}
+#map iframe{
+    width: 110%;
+    height: 20%;
+}
+/**************************** PADDING ***************************/
+.padding1 {padding: 2%;}
+/**************************** MARGENES ***************************/
+.margin1 {margin-left: -41%;}
+.margin2 {margin-bottom:20px;}
+.margin3 {margin-left: 15%;}
+.margin4 {margin-right:15%;}
+.margin5 {margin-bottom:3%;}
+.margin6 {margin-top:3%;}
+.margin7 {margin-top:20px;}
+.margin8 {margin-right: 10%;}
+.margin9 {margin-left: 9%;}
+/***************************** BOTONES ***************************/
+td a i{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+#botones a {
+    margin-top:2%;
+    text-decoration:none;
+    padding: 1%;
+    border: 2px solid grey;
+    font-family: titulo2;
+    margin-bottom:2%;
+    background-color: lightskyblue;
+    color:black;
+    text-align:center;
+}
+.enlace{
+    text-decoration:none;
+    color:black;
+}
+table a:hover {
+    color:white;
+    background-color:black;
+}
+.enlace:select {
+    color:black;
+}
+.enlace:acitve {
+    color:black;
+}
+
+.enlaceRegistro {
+    background-color: gainsboro;
+    display:table;
+    padding: 3px;
+}
+
+/***************************** LISTAS REDES ***************************/
+#menuRedes ul li {
+    list-style-type: none;
+    float: left;
+    padding-right: 20px;
+}
+#menuRedes ul li a i{
+    font-size: 167%;
+}
+
+/***************************** BORDES ***************************/
+.bordesArriba {
+    border:groove 2px #abc0d6;
+    border-top-left-radius:22px;
+    border-top-right-radius:22px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+}
+.bordesGris {border:groove 2px #abc0d6;}
+
+/***************************** RESPONSIVE ***************************/
+@media only screen and (min-width: 210px) and (max-width:299px){
+    .margin1 {margin-left: -14%;}
+    .margin3 {margin-left:0%;}
+    .margin4 {margin-right:0%;}
+    .margin6 {margin-top: 14%;}
+    .margin8 {margin-right: 0%;}
+    .margin9 {margin-left: 0%;}
+    #map iframe{width: 97%;}
+    #menuRedes ul li {padding-right: 15px;}
+}
+
+@media only screen and (min-width: 300px)and (max-width:399px){
+    .margin1 {margin-left: -4%;}
+    .margin3 {margin-left:0%;}
+    .margin4 {margin-right:0%;}
+    .margin8 {margin-right: 0%;}
+    .margin9 {margin-left: 0%;}
+    #map iframe{width: 97%;}	
+}
+@media only screen and (min-width: 400px)and (max-width:699px){
+    .margin1 {margin-left: -14%;}
+    .margin3 {margin-left:0%;}
+    .margin4 {margin-right:0%;}
+    .margin8 {margin-right: 0%;}
+    .margin9 {margin-left: 0%;}
+    #map iframe{width: 97%;}	
+}
+@media only screen and (min-width: 700px){
+    .margin1 {margin-left: -21%;}
+    .margin8 {margin-right: 5%;}
+    .margin9 {margin-left: 0%;}
+}
+
+@media only screen and (min-width:950px){
+    .margin3 {margin-left:0%;}
+    .margin4 {margin-right:0%;}
+    .margin8 {margin-right: 5%;}
+    .margin9 {margin-left: 0%;}	
+}
+
+@media only screen and (min-width:1023px){
+    .margin3 {margin-left:15%;}
+    .margin4 {margin-right:15%;}
+    .margin8 {margin-right: 2%;}
+    .margin9 {margin-left: 0%;}
+}
+@media only screen and (min-width:1366px){
+    .margin9 {margin-left: 8%;}
+}
