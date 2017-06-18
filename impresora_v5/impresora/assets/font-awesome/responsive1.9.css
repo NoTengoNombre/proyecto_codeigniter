@@ -1,0 +1,290 @@
+.clear {
+	clear:both;
+}
+
+.div-Inline {
+	margin-left: 0.7%;
+	float: left;
+}
+/* ------------------------------------------- MODIFICACION DEL AGROUP, TAB-AGROUP --------------------------------------------------*/
+.agroupBase{
+	height: auto;
+	font-family: Segoe UI Semibold;
+	border:groove 5px #ffffff;
+	padding: 0px;
+	margin: 2%;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright:5px;
+	-moz-border-radius-bottomleft:5px;
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+
+.agroupCabeceraBase{
+	height: auto;
+	text-align: left;
+	margin: 0 auto;
+	background-color: green;
+}
+.cuerpoAgroupBase {
+	margin: 0 auto;
+	height: auto;
+	padding:0.3%;
+	background-color:white;
+	font-family: Segoe UI Semibold;
+}
+
+/* --------------------------------------------------- MODIFICACION DE LOS TITULOS ---------------------------------------- */
+.tituloBase {
+	margin: 0 auto;
+	color:white;
+}
+
+/* --------------------------------------------------- MODIFICACION DEL LABEL ---------------------------------------- */
+.labelBase{
+	font-size: 90%;
+	font-family: Segoe UI Semibold;	
+	margin: 0.3%;
+}
+.label-right{
+	float: right;
+}
+.label-left{
+	float: left;
+}
+/* --------------------------------------------------- MODIFICACION DEL FIELDSET ---------------------------------------- */
+.fieldsetBase { 
+    display: block;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    padding: 0.5%;
+    border: 4px groove (internal value);
+}
+
+.legendBase {
+	font: 100%;
+}
+
+/* - MODIFICACION DEL INPUT, SELECT, DATALIST,TEXTAREA, BDO, ABBR, DFN, AUDIO, DETAILS, EMBED, HEADER, FOOTER, KEYGEN, VIDEO, TAB-BTN- */
+.controlBase {	
+	display: block;
+	font-family: Segoe UI Semibold;
+	text-align: center;
+	border-radius:5px;
+	cursor:pointer;
+	cursor: hand;
+	font-size:90%;
+	margin-top:3px;
+	
+}
+.textTareaIzq {
+	text-align:left;
+}
+
+.inputBaseImage {
+	width: 5%;
+}
+
+.radioBase {
+	margin-left:5px;
+	width: 17px;
+	height: 17px;
+	vertical-align: middle;
+}
+
+.checkboxBase {
+	margin: 0 auto;
+	vertical-align: middle;
+	height: 17px;
+	width: 17px;
+	margin-top:0.3%;
+}
+
+.tamano100 {
+	width: 80%;
+}
+
+.controlShadowOutsetBase:hover{
+	-moz-box-shadow:inset -3px 5px 8px #000000;
+	-webkit-box-shadow:inset -3px 5px 8px #000000;
+	box-shadow:inset -3px 5px 8px #000000;
+}
+
+.controlShadowBase{
+	-moz-box-shadow:inset -3px 5px 8px #000000;
+	-webkit-box-shadow:inset -3px 5px 8px #000000;
+	box-shadow:inset -3px 5px 8px #000000;
+}
+
+.controlShadowOutsetBase{
+	-moz-box-shadow: 3px 5px 8px #000000;
+	-webkit-box-shadow: 3px 5px 8px #000000;
+	box-shadow: 3px 5px 8px #000000;
+}
+/* --------------------------------------------------- MODIFICACION DEL PROGRESS, METER ---------------------------------------- */
+.progressBase {
+	display: block;
+	font-family: Segoe UI Semibold;
+	text-align: left;
+	margin: 0.6%;
+	border-radius:5px;
+	cursor:pointer;
+	cursor: hand;
+	font-size:90%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+/* --------------------------------------------------- MODIFICACION DEL UL, OL, DL ---------------------------------------- */
+.listasCuadrado {
+	list-style-type: square;
+}
+
+.listasRomanos {
+	list-style-type: square;
+}
+
+.listasCirculo {
+	list-style-type: circle;
+}
+
+.listasLetras {
+	list-style-type: lower-alpha;
+}
+.listasNone{
+	list-style-type: none;
+}
+
+.listasGif{
+	list-style: square inside url("iconUL.png");
+}
+.listasImage{
+	list-style-image: url('iconUL.png');
+}
+.listasPosition{
+	list-style-position: inside;
+}
+/* --------------------------------------------------- MODIFICACION DE LAS TABLAS ---------------------------------------- */
+.tableBase td, th {
+	border-collapse: collapse;
+	border: 2px solid black;
+	padding: 5px;
+	text-align: center;
+	margin: 0 auto;
+}
+.tableBase {
+	border-collapse: collapse;
+}
+
+/* --------------------------------------------------- PARA PONER OBJETOS EN LINEA ---------------------------------------- */
+.Inline {
+	display: inline;
+}
+
+/* ----------------------------------------------------------- RESPONSIVE --------------------------------------------------- */
+
+/* PARA PANTALLAS */
+@media only screen and (min-width: 210px) and (max-width:299px){
+	.controlBase {
+		font-size:130%;
+		
+	}
+	.controlBaseImage {
+		width: 5%;
+	}
+	.labelBase{
+		font-size:130%;
+	}
+}
+@media only screen and (min-width: 300px)and (max-width:399px){
+	.controlBase {
+		font-size:140%;
+		
+	}
+	.controlBaseImage {
+		width: 5%;
+	}
+	.labelBase{
+		font-size:140%;
+	}
+}
+@media only screen and (min-width: 400px)and (max-width:699px){
+	.controlBase {
+		font-size:120%;
+		
+	}
+	.labelBase{
+		font-size:120%;
+	}
+}
+
+@media only screen and (min-width: 700px){
+	.controlBase {
+		font-size:100%;
+		
+	}
+	.labelBase{
+		font-size:100%;
+	}
+}
+
+/* PARA MOVILES */
+
+
+@media (min-device-width: 800px) and (max-device-width: 1023px){
+	.controlBase {
+		font-size:100%;		
+	}
+	.labelBase{
+		font-size:100%;
+	}
+}
+@media (min-device-width: 600px) and (max-device-width: 799px){
+	.controlBase {
+		font-size:120%;
+	}
+	.labelBase{
+		font-size:120%;
+	}
+}
+@media (min-device-width: 480px) and (max-device-width: 599px){
+	.controlBase {
+		font-size:130%;
+		
+	}
+	.labelBase{
+		font-size:130%;
+	}
+}
+@media (min-device-width:320px) and (max-device-widht:479px) and (orientation : portrait){
+	.controlBase {
+		font-size:140%;
+		
+	}
+	.controlBaseImage {
+		width: 5%;
+	}
+	.labelBase{
+		font-size:140%;
+	}
+}
+@media (min-width:210px) and (max-widht:319px) and (orientation : portrait){
+	.controlBase {
+		font-size:150%;		
+	}
+	.controlBaseImage {
+		width: 5%;
+	}
+	.labelBase{
+		font-size:150%;
+	}
+}
+
+
