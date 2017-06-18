@@ -92,13 +92,12 @@
 
      $(document).ready(
              // Funciona : Quita los datos y vuelve a la tabla     
-    $(document).on("click", "#borrar", function () {
+             $(document).on("click", "#borrar", function () {
          $('#form')[0].reset(); // Borra desde el formulario de la 2º pestaña
-         $('#report').html('<p id="campos_borrados">Campos borrados</p>');
+         $('#report').html('<p class="allline txtcentro error" style="color: green;" id="campos_borrados">Campos borrados</p>');
          $('#campos_borrados').fadeOut(1500);
      }),
-         
-         $(document).on("click", "#boton_editar", function () {
+             $(document).on("click", "#boton_editar", function () {
          $('#report').html('');
          var url; // la variable 'url' almacena el tipo de metodo a lanzar
          url = "<?php echo site_url('index.php/controlador_usuarios/actualizar_usuario') ?>";
@@ -117,7 +116,7 @@
              type: "POST",
              data: data
          }).done(function (data) {
-             $("#report").html("<h2 class=''>" + data + "</h2>");
+             $("#report").html("<p class='allline txtcentro error' style='color: green;'>" + data + "</p>");
              actualizar_tabla_user();
          });
      }),
@@ -134,15 +133,15 @@
              'email': $('#email').val(),
              'activo': $('#activo').val(),
              'tipo': $('#tipo').val(),
-             'password': $('#password').val(),
+             'password': $('#password').val()
          };
          // ajax adding data to database
          $.ajax({
              url: url,
              type: "POST",
-             data: data,
+             data: data
          }).done(function (data) {
-             $("#report").html("<h2 class=''>" + data + "</h2>");
+             $("#report").html("<p class='allline txtcentro error' style='color: green;'>" + data + "</p>");
              actualizar_tabla_user();
          });
      }),
@@ -157,9 +156,9 @@
              data: data,
          }).done(function (data) {
              $("#tabla_usuarios").html(data);
+             location.reload();
          });
      }
-
 
 
      function editar_usuario(id)
@@ -196,61 +195,61 @@
 
  <!-- ESTA ES LA SEGUNDA PESTAÑA
       FORMULARIO PARA AÑADIR UN NUEVO USUARIO -->
- <div class="modal fade" id="modal_form" role="dialog">
-  <div class="modal-dialog">
-   <div class="modal-content">
-    <div class="modal-header">
 
-     <div id="tab2" id="capa2" class="contenido_tab w10 bordesGris">
-      <div class="STBAgroup w10">
+ <div id="tab2" id="capa2" class="contenido_tab w10 bordesGris">
+  <div class="STBAgroup w10">
 
-       <div class="modal-body form">
-        <div id="report"></div>
-        <!-- Formulario de envio -->
-        <!-- -- --><!-- -- --><!-- -- -->
-        <form id="form" id="modal_form" class="STBTab w5" action="#">
-         <select id="activo" name="activo" class="STBInput STBTab allline margin5 txs6">
-          <option value="0" selected>Inactivo</option>       
-          <option value="1">Activo</option>    
-         </select>
-         <select name="tipo" id="tipo" class="STBInput STBTab allline margin5 txs6 margin7">
-          <option value="0">Administrador</option>       
-          <option value="1">Usuario</option>    
-         </select>
+   <div class="modal-body form">
+    <div id="report"></div>
+    <!-- Formulario de envio -->
+    <form id="form" class="STBTab w5" action="#">
 
-         <input type="hidden" id="usuario_id" value="0">
-         <input required type="text" id="nombre" name="nombre" class="STBInput STBTab allline margin5 txs6" placeholder="Nombre">
-         <input required type="text" id="apellidos" name="apellidos" class="STBInput STBTab allline margin5 txs6" placeholder="Apellidos">
-         <input required type="text" id="email" name="email" class="STBInput STBTab allline margin5 txs6" placeholder="Email">
+     <select name="tipo" id="tipo" class="STBInput STBTab allline margin5 txs6 margin7">
+      <option value="0">Administrador</option>       
+      <option value="1">Usuario</option>    
+     </select>
 
-         <input required type="text" id="password" name="password" class="STBInput STBTab allline margin5 txs6" placeholder="contrase&ntilde;a">
+     <select id="activo" name="activo" class="STBInput STBTab allline margin5 txs6">
+      <option value="0" selected>Inactivo</option>       
+      <option value="1">Activo</option>    
+     </select>
 
-         <div class="w5 STBTab">
-          <span style="display: inline" id="boton_registrar" type="submit" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 izq">Registrar Usuario</span>         
-          <span style="display: none" id="boton_editar" type="submit" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 izq">Editar Usuario</span>
-          <!--Al pulsar este boton lanza la funcion Jquery para borrar los datos-->
-          <span id="borrar" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 der"  title="borrar">
-           <i class="fa fa-trash-o"></i>
-          </span>
-          <div>
-           <div class="clear"></div>
-           </form>
-          </div>
+     <input type="hidden" id="usuario_id" value="0">
+     <input required type="text" id="nombre" name="nombre" class="STBInput STBTab allline margin5 txs6" placeholder="Nombre">
+     <input required type="text" id="apellidos" name="apellidos" class="STBInput STBTab allline margin5 txs6" placeholder="Apellidos">
+     <input required type="text" id="email" name="email" class="STBInput STBTab allline margin5 txs6" placeholder="Email">
+     <input required type="text" id="password" name="password" class="STBInput STBTab allline margin5 txs6" placeholder="contrase&ntilde;a">
+    </form>
+   </div>
 
+   <div class="w5 STBTab">
+<!--<span style="display: inline" id="boton_registrar" type="submit" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 izq">Registrar Usuario</span>-->         
+    <center>
+     <span style="display: inline" id="boton_registrar" type="submit" class="STBInput STBSombra STBSombraOut STBTab margin5 txs6">Registrar Usuario</span>         
+    </center>
 
+<!--<span style="display: none" id="boton_editar" type="submit" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 izq">Editar Usuario</span>-->
+    <center>
+     <span style="display: none" id="boton_editar" type="submit" class="STBInput STBSombra STBSombraOut STBTab margin5 txs6">Editar Usuario</span>
+    </center>
+    <br>
 
+    <!--Al pulsar este boton lanza la funcion Jquery para borrar los datos-->
+    <!--<span id="borrar" class="STBInput STBSombra STBSombraOut STBTab allline margin5 txs6 margin2 der"  title="borrar">-->
+    <center>
+     <span id="borrar" class="STBInput STBSombra STBSombraOut STBTab margin5 txs6"  title="borrar">
+      <i class="fa fa-trash-o"></i>
+     </span>
+    </center>
+    <br>
 
-
-         </div>
-       </div>
-      </div>
-     </div>
+    <div>
+     <div class="clear"></div>
     </div>
    </div>
+
   </div>
-
  </div>
-
 
  <!-- ESTA ES LA TERCERA PESTAÑA -->
  <div id="tab3" class="contenido_tab w10" >
@@ -269,8 +268,8 @@
       <th>NOTAS</th>		
       <th>ID DOCUMENTOS</th>
       <th>ID ARCHIVO</th>
-      <th></th>
-      <th></th>
+      <th>ESTADO</th>
+      <th>BORRAR</th>
      </tr>
     </thead>
 
@@ -292,8 +291,8 @@
           <td data-label="NOTAS"><?php echo $info["notas"] ?><br></td>
           <td data-label="ID DOCUMENTOS" class="id_documento"><?php echo $info["id_documento"] ?><br></td>
           <td data-label="ID ARCHIVOS"><?php echo $info["id_archivo"] ?><br></td>
-          <td class="boton" value="<?php echo $info["id_documento"] ?>"> <button class="cambiar_estado">Marcar Impreso</button><br></td>
-          <td> <button class="borrar_doc"  value="<?php echo $info["id_documento"] ?>"><i class="fa fa-trash-o"></i></button><br></td>
+          <td data-label="ESTADO" class="boton" value="<?php echo $info["id_documento"] ?>"> <button class="cambiar_estado">Marcar Impreso</button><br></td>
+          <td data-label="BORRAR"> <button class="borrar_doc"  value="<?php echo $info["id_documento"] ?>"><i class="fa fa-trash-o"></i></button><br></td>
          </tr>
      <?php } ?>
     </tbody>
@@ -301,65 +300,59 @@
   </div>
  </div>
  <div id="clear" class="clear"></div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        $(".status").each(function (index, value) {
-            if ($(this).attr("value") == "1") {
-                $(this).text("Terminado");
-                $(this).parent().find(".boton").html("Ya esta impreso");
-            } else {
-                $(this).text("En espera");
-            }
-        });
+ <script>
+     $(document).ready(function () {
+         $(".status").each(function (index, value) {
+             if ($(this).attr("value") == "1") {
+                 $(this).text("Terminado");
+                 $(this).parent().find(".boton").html("Ya esta impreso");
+             } else {
+                 $(this).text("En espera");
+             }
+         });
 
-        $(document).on("click", ".cambiar_estado", function () {
-            var d = new Date();
-            var di = d.getDate();
-            var me = d.getMonth();
-            var an = d.getFullYear();
-            var id = $(this).parent().parent().find(".id_documento").text();
-            $(this).parent().parent().find(".status").text("Terminado");
-            $(this).parent().parent().find(".fechaImpresion").text(di + "/" + me + "/" + an);
-            $(this).parent().html("Ya esta impreso");
-            $.ajax({
-                url: "<?php echo site_url('controlador_documentos/cambiar_estado/') ?>" + id,
-                success: function () {
-                    $("#report").html("");
-                }
-            });
-        });
+         $(document).on("click", ".cambiar_estado", function () {
+             var d = new Date();
+             var di = d.getDate();
+             var me = d.getMonth();
+             var an = d.getFullYear();
+             var id = $(this).parent().parent().find(".id_documento").text();
+             $(this).parent().parent().find(".status").text("Terminado");
+             $(this).parent().parent().find(".fechaImpresion").text(di + "/" + me + "/" + an);
+             $(this).parent().html("Ya esta impreso");
+             $.ajax({
+                 url: "<?php echo site_url('controlador_documentos/cambiar_estado/') ?>" + id,
+                 success: function () {
+                     $("#report").html("");
+                 }
+             });
+         });
 
-        $(document).on("click", ".borrar_doc", function () {
-            id = $(this).attr("value");
-            nombre = $("#nombre" + id).text().trim();
-            data = {
-                "id": id,
-                "nombre": nombre
-            };
-            $.ajax({
-                url: "<?php echo site_url('controlador_documentos/borrar_documento') ?>",
-                type: "POST",
-                data: data
-            });
-            $("#row" + id).remove();
-        });
+         $(document).on("click", ".borrar_doc", function () {
+             id = $(this).attr("value");
+             nombre = $("#nombre" + id).text().trim();
+             data = {
+                 "id": id,
+                 "nombre": nombre
+             };
+             $.ajax({
+                 url: "<?php echo site_url('controlador_documentos/borrar_documento') ?>",
+                 type: "POST",
+                 data: data
+             });
+             $("#row" + id).remove();
+         });
 
-        $(document).on("click", "#editar", function () {
-            $('#report').html('');
-            $('#boton_registrar').fadeOut('fast');
-            $('#boton_editar').fadeIn();
-        });
+         $(document).on("click", "#editar", function () {
+             $('#report').html('');
+             $('#boton_registrar').fadeOut('fast');
+             $('#boton_editar').fadeIn();
+         });
 
-        $(document).on("click", '#pestania2', function () {
-            $('#boton_editar').fadeOut('fast');
-            $('#boton_registrar').fadeIn();
-
-        });
-
-
-    });
-
-
-</script>
+         $(document).on("click", '#pestania2', function () {
+             $('#boton_editar').fadeOut('fast');
+             $('#boton_registrar').fadeIn();
+         });
+     });
+ </script>

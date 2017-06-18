@@ -16,3 +16,8 @@ select * from usuarios u inner join documentos d on u.usuario_id = d.usuario_id 
 
 
 select * FROM usuarios;
+
+
+ERROR 
+Mysql error 1452 - Cannot add or update a child row: a foreign key constraint fails
+SELECT DISTINCT id_documento FROM documentos doc LEFT JOIN archivo ar ON doc.documento_id = ar.id_archivo WHERE doc.documento_id IS NULL

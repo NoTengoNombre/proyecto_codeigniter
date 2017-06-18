@@ -29,7 +29,7 @@
 <div id="report">  <?php echo $mensaje ?> </div>
      <?php $this->load->helper("form"); ?>
   <div id='documentos' class="w6 STBBody Arial">
-  	<h3>Solo se permiten .pdf con un tamaño maximo de 5Mb</h3>
+  	<h3 class='allline txtcentro'>Solo se permiten .pdf con un tamaño maximo de 5Mb</h3>
       <?php
       echo form_open_multipart("controlador_documentos/uploadDocument", "class='STBTab w5'");
 

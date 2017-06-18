@@ -45,7 +45,7 @@ class Controlador_documentos extends CI_Controller {
 //Si ARCHIVO DA ERROR 'se cambia la condicion' entra en el 'IF' 
         	
             if (!$this->upload->do_upload('documento' . $i)) {
-                return $this->nueva_vista("Error al subir uno de los ficheros");
+                return $this->nueva_vista("<p class='allline txtcentro error' style='color: red;'>Error al subir uno de los ficheros</p>");
 //Si ARCHIVO ES SUBIDO 'entra en esta condicion'                
             } else{
 //Crea array 'asociativo'                
@@ -66,7 +66,7 @@ class Controlador_documentos extends CI_Controller {
 	//                                                              Posicion del archivo a subir                                             
 	//                                                                          Identificador del usuario para saber que usuario subio el archivo
 	                $this->modelo_documentos->uploadDocument($data, $archivoId, $idusr);
-	                return $this->nueva_vista("Archivo subido correctamente");//}
+	                return $this->nueva_vista("<p class='allline txtcentro error' style='color: green;'>Archivo subido correctamente</p>");//}
                 /*else{
             		return $this->nueva_vista("Uno de los archivos es demasiado grande");
             	}*/

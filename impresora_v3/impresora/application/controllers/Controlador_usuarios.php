@@ -189,7 +189,7 @@ class Controlador_usuarios extends CI_Controller {
     }
 
     /**
-     * Pendiente de uso
+     * Redirige a la vista para registrar un nuevo usuario
      */
     public function add_user_invitado($id = null) {
 
@@ -217,12 +217,12 @@ class Controlador_usuarios extends CI_Controller {
             $resultado = $this->modelo_usuarios->user_add($nombre, $apellidos, $password, $activo, $email, $tipo);
 
             if ($resultado) {
-                echo "Registrado correctamente";
+                echo "<p class='allline txtcentro error' style='color: green;'>Registrado correctamente</p>";
             } else {
-                echo "Error al Registrarse";
+                echo "<p class='allline txtcentro error' style='color: red;'>Error al Registrarse</p>";
             }
         } else {
-            echo "Error al recoger los datos";
+            echo "<p class='allline txtcentro error' style='color: red;'>Error al recoger los datos</p>";
         }
     }
 
@@ -251,11 +251,11 @@ class Controlador_usuarios extends CI_Controller {
                 // Mensaje que se envia directamente a la vista del 'panel admin' con el resultado
                 // de la ejecucion de la acción  
                 if ($re) {
-                    $this->panel("Usuario creado con éxito");
+                    $this->panel("<p class='allline txtcentro error' style='color: green;'>Usuario creado con éxito</p>");
                 } else {
                     // Mensaje que se envia directamente a la vista del 'panel admin' con el resultado
                     // de la ejecucion de la acción
-                    $this->panel("Error al crear el usuario");
+                    $this->panel("<p class='allline txtcentro error' style='color: red;'>Error al crear el usuario</p>");
                 }
             }
         }//IF tipo de user
@@ -274,9 +274,9 @@ class Controlador_usuarios extends CI_Controller {
                 $re = $this->modelo_usuarios->user_add($nombre, $apellidos, $password, 0, $email, 1); // el insert no hace falta
 // La inserccion regresa 'true' si se ha realizado con exito                
                 if ($re) {
-                    $this->panel("Usuario creado con éxito");
+                    $this->panel("<p class='allline txtcentro error' style='color: green;'>Usuario creado con éxito</p>");
                 } else {
-                    $this->panel("Error al crear usuario");
+                    $this->panel("<p class='allline txtcentro error' style='color: red;'>Error al crear usuario</p>");
                 }
             }
         }
@@ -316,12 +316,12 @@ class Controlador_usuarios extends CI_Controller {
 // Si la actualización se realiza con exito devuelve 'true' si la actualizacion no se realiza con exito devuelve 'false'
             $re = $this->modelo_usuarios->update_usuario($usuario_id, $nombre, $apellidos, $password, $activo, $email, $tipo);
             if ($re) { // actualizacion correcta
-                echo "Datos Actualizados Correctamente";
+                echo "<p class='allline txtcentro error' style='color: green;'>Datos Actualizados Correctamente<p>";
             } else { // actualizacion incorrecta
-                echo "Error al Actualizar los datos";
+                echo "<p class='allline txtcentro error' style='color: red;'>Error al Actualizar los datos</p>";
             }
         } else {
-            echo "Error los datos no estan fijados";
+            echo "<p class='allline txtcentro error' style='color: red;'>Error los datos no estan fijados</p>";
         }
     }
 
@@ -347,11 +347,11 @@ class Controlador_usuarios extends CI_Controller {
             $this->modelo_usuarios->deleteUsuario($id);
 // Mensaje que se envia directamente a la vista del 'panel admin' con el resultado
 // de la ejecucion de la acción   
-            $this->panel('<h2 class="titulo STBTitle margin5">Borrado con exito</h2>');
+            $this->panel('<p class="allline txtcentro error" style="color: green;">Borrado con exito</p>');
 
             } else {
 // Muestra el panel con el mensaje de que no se borro al usuario
-            $this->panel('<h2 class="titulo STBTitle margin5">Borrado sin exito</h2>');
+            $this->panel("<p class='allline txtcentro error' style='color: green;'>Borrado sin exito</p>");
         }
     }
 
@@ -366,7 +366,7 @@ class Controlador_usuarios extends CI_Controller {
 // Destruye la 'session' con la funcion             
             $this->session->sess_destroy();
 // Redirige el flujo del programa al index con un mensaje            
-            $this->index("Sesion Cerrada");
+            $this->index('Sesion Cerrada');
         }
     }
 
